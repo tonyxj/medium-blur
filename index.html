@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="stylesheets/main.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:600,700|Lato:100|Merriweather:300,400,300italic' rel='stylesheet' type='text/css'>
+	<title>Creating a Medium Style Header</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'></script>
+	
+	<script>
+
+	$(document).ready(function(){
+		$('.titles').hide().fadeIn(500);
+		$('#bgimage').load(function(){
+				stackBlurImage("bgimage", "blur", 90);
+				function setImageRatio() {
+					$('#blur').css('width', '100%');
+					$('#blur').css('height', $('#blur').width()/1.5951613);
+					
+					if($("#blur").height() <= $('header').height()){
+						$("#blur").height($('header').height());
+						$("#blur").width($('header').height()/0.6268958);
+					} 
+				} // setImageRatio function
+
+				setImageRatio();
+				$(window).resize(function(){
+					 setImageRatio();
+				}); // resize function
+
+				var lastScrollPos = $(window).scrollTop();
+				if (lastScrollPos != 0) {
+					var delta = $('header').height() - lastScrollPos;
+					$('#blur').css({
+						opacity: 1-delta/1300
+					}); 
+			
+				} 
+
+				function scrollF() {
+					$(window).scroll(function(event){
+					   var scrollAmt = $(this).scrollTop();
+					   var deltaScroll = scrollAmt - lastScrollPos;
+			
+					   if (scrollAmt <= 10) {
+							    $("#blur").css({opacity: 0});
+							    setImageRatio();
+					      } else {
+					      		$("#blur").css({opacity: "+=" + deltaScroll/240});
+					      		setImageRatio();
+					    }
+					   lastScrollPos = scrollAmt;
+					});
+				} // scroll
+				scrollF();
+		});
+
+		$(".scrolldown").click(function(e) {
+			e.preventDefault();
+		    $('html, body').animate({
+		        scrollTop: $("#steps").offset().top
+		    }, 600);
+		});
+	}); // document ready
+
+	</script>
+</head>
+<body>
+	<header>
+		<div class="blur-container">
+			<canvas id="blur"></canvas>
+		</div>
+		
+		<div class="image-source">	
+			<img id="bgimage" src="images/yos.jpg">
+		</div>
+		
+		<div class="titles">
+			<h1>Medium Style Header</h1>
+			<h2>Making parallax, blur and gradient work for the web </h2>
+		</div>
+		<div class="buttons">
+				<a href="#steps" class="scrolldown">The Steps to Blur</a>
+				<a href="http://tonyxj.github.io/medium-parallax/">The Parallax</a>
+				<a href="https://medium.com/@TonyJing/medium-style-header-aa738696c6ac">Article On Medium</a>
+		</div>
+		
+		
+	</header>
+	<section>
+		<p id="steps"><a href="https://medium.com/@TonyJing/medium-style-header-aa738696c6ac">Read about how this was created.</a></p>
+
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non nisi id massa gravida sodales. Suspendisse potenti. Phasellus semper euismod posuere. Mauris a tincidunt urna. Donec malesuada feugiat tortor, eget dictum est posuere ullamcorper. Quisque ipsum tellus, molestie eget justo nec, luctus volutpat magna. Quisque non urna sit amet ante dictum hendrerit vel quis erat.</p> 
+
+		<p>Etiam commodo lobortis lacus, quis scelerisque lorem laoreet et. Sed vestibulum fermentum nulla ultricies dapibus. Maecenas congue, leo ut faucibus molestie, tortor nibh volutpat neque, ac mattis massa tellus eu sapien. Nullam et aliquam nisl, ut accumsan justo. Vestibulum auctor eros vitae magna lacinia tempor. Phasellus sollicitudin interdum sollicitudin. Cras a odio arcu. Suspendisse commodo sit amet diam vel scelerisque. Curabitur vestibulum risus nec nibh dapibus hendrerit.</p>
+
+		<p>In dapibus sollicitudin velit. Proin porttitor aliquam varius. Vestibulum scelerisque hendrerit tortor, id tempus arcu lacinia ac. Aliquam id ipsum condimentum sem aliquam elementum. Donec est purus, dictum sed eros in, consectetur pretium neque. Cras mollis condimentum ultricies. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempus at elit a scelerisque. Praesent imperdiet molestie libero sit amet consectetur. Aliquam sed mi id enim molestie aliquet. Vestibulum vel sollicitudin ante. Curabitur eros eros, aliquet in eleifend eu, rhoncus eu turpis.</p>
+
+		<p>Nulla interdum libero eros, id eleifend leo feugiat auctor. Duis nec cursus turpis. Etiam sed elementum lorem, ac vulputate ligula. Donec in sollicitudin sapien. Nunc pellentesque odio non iaculis sodales. Fusce vitae nisi at dui rutrum pharetra. Maecenas interdum non quam ac faucibus. Duis pulvinar nisi non condimentum lobortis. Morbi ac dictum augue. Morbi semper mattis enim, in porta ligula commodo vel. Nunc tincidunt purus massa, a egestas lorem eleifend at.</p>
+
+	
+		
+
+	</section>
+
+	 <script src="js/stackblur.js"></script>
+
+</body>
+</html>
+
